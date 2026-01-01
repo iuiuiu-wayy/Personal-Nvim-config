@@ -23,7 +23,7 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.api.nvim_set_keymap(
       "n",
       "<leader>pdb",
-      "oimport pdb; pdb.set_trace()<Esc>:w<CR>",
+      "oimport ipdb; ipdb.set_trace()<Esc>:w<CR>",
       { noremap = true, silent = true }
     )
     -- vim.api.nvim_set_keymap("n", "<leader>yf", "bvwhy", { noremap = true, silent = true })

@@ -33,10 +33,12 @@ return {
       },
     },
     config = function()
-      local lspconfig = require("lspconfig")
+      -- local lspconfig = require("lspconfig")
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      lspconfig.lua_ls.setup({ capabilities = capabilities })
-      lspconfig.pyright.setup({
+      -- lspconfig.lua_ls.setup({ capabilities = capabilities })
+      vim.lsp.config("lua_ls", { capabilities = capabilities })
+      -- lspconfig.pyright.setup({
+      vim.lsp.config("pyright", {
         capabilities = capabilities,
         settings = {
           pyright = {
@@ -61,18 +63,23 @@ return {
           },
         },
       })
-      lspconfig.bashls.setup({ capabilities = capabilities })
-      lspconfig.ruff.setup({
+      -- lspconfig.bashls.setup({ capabilities = capabilities })
+      vim.lsp.config("bashls", { capabilities = capabilities })
+      -- lspconfig.ruff.setup({
+      vim.lsp.config("ruff", {
         capabilities = capabilities,
-        -- init_options = {
-        --          settings = {
-        --            -- Ruff language server settings go here
-        --          }
-        --        }
+        init_options = {
+          settings = {
+            -- Ruff language server settings go here
+          },
+        },
       })
-      lspconfig.sqls.setup({ capabilities = capabilities })
+      vim.lsp.enable("ruff")
+      -- lspconfig.sqls.setup({ capabilities = capabilities })
+      vim.lsp.config("sqls", { capabilities = capabilities })
 
-      lspconfig.eslint.setup({
+      -- lspconfig.eslint.setup({
+      vim.lsp.config("eslint", {
         capabilities = capabilities,
         settings = {},
 
@@ -85,7 +92,8 @@ return {
         -- end,
       })
 
-      lspconfig.ts_ls.setup({
+      -- lspconfig.ts_ls.setup({
+      vim.lsp.config("ts_ls", {
         capabilities = capabilities,
       })
 
@@ -95,6 +103,7 @@ return {
       vim.keymap.set("n", "gi", vim.lsp.buf.implementation, {})
       vim.keymap.set("n", "grr", require("telescope.builtin").lsp_references, {}) -- replaced by grr
       vim.keymap.set("n", "grn", vim.lsp.buf.rename, {})
+      vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, {})
       vim.keymap.set({ "n" }, "<leader>ca", vim.lsp.buf.code_action, {})
     end,
   },

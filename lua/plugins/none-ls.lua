@@ -12,6 +12,7 @@ return {
         --                  command = ruff_executeable
         --}),
         null_ls.builtins.formatting.prettier,
+        null_ls.builtins.formatting.pg_format,
       },
     })
 

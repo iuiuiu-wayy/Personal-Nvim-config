@@ -39,3 +39,6 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.bo.softtabstop = 2
   end,
 })
+
+vim.o.exrc = true   -- Enable reading .nvim.lua in project directories
+vim.o.secure = true -- Disable unsafe commands in local config (optional safety)

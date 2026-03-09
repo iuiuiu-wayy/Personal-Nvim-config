@@ -76,7 +76,13 @@ return {
       })
       vim.lsp.enable("ruff")
       -- lspconfig.sqls.setup({ capabilities = capabilities })
-      vim.lsp.config("sqls", { capabilities = capabilities })
+      vim.lsp.config("sqls", {
+        capabilities = capabilities,
+        on_attach = function(client)
+          client.server_capabilities.documentFormattingProvider = false
+          client.server_capabilities.documentRangeFormattingProvider = false
+        end,
+      })
 
       -- lspconfig.eslint.setup({
       vim.lsp.config("eslint", {
@@ -95,6 +101,19 @@ return {
       -- lspconfig.ts_ls.setup({
       vim.lsp.config("ts_ls", {
         capabilities = capabilities,
+        init_options = {
+          preferences = {
+            disableSuggestions = false,
+          },
+          maxTsServerMemory = 4096,
+        },
+        settings = {
+          typescript = {
+            preferences = {
+              includePackageJsonAutoImports = "off",
+            },
+          },
+        },
       })
 
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})

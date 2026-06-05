@@ -9,7 +9,7 @@ return {
     "williamboman/mason-lspconfig.nvim",
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "pyright", "bashls", "sqls", "ts_ls" },
+        ensure_installed = { "lua_ls", "pyright", "bashls", "sqls", "ts_ls", "gopls" },
       })
     end,
   },
@@ -17,7 +17,7 @@ return {
     "jayp0521/mason-null-ls.nvim",
     config = function()
       require("mason-null-ls").setup({
-        ensure_installed = { "prettier" },
+        ensure_installed = { "prettier", "gofumpt", "golangci-lint" },
       })
     end,
   },
@@ -115,6 +115,21 @@ return {
           },
         },
       })
+
+      vim.lsp.config("gopls", {
+        capabilities = capabilities,
+        settings = {
+          gopls = {
+            analyses = {
+              unusedparams = true,
+              shadow = true,
+            },
+            staticcheck = true,
+            gofumpt = true,
+          },
+        },
+      })
+      vim.lsp.enable("gopls")
 
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
       vim.keymap.set("n", "gD", vim.lsp.buf.declaration, {})

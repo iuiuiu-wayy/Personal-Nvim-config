@@ -54,6 +54,25 @@ return {
 				map("n", "<leader>hgN", gitsigns.prev_hunk)
 				map("n", "<leader>td", gitsigns.toggle_deleted)
 
+				-- Review (GitLab MR-style: diff the whole branch vs the target)
+				-- Run :Git fetch first so origin/main is current.
+				local review_base = "origin/main"
+
+				-- Diff signs/previews against the MR target instead of the index.
+				map("n", "<leader>hm", function()
+					gitsigns.change_base(review_base, true)
+					vim.notify("gitsigns: reviewing against " .. review_base)
+				end)
+				-- Back to normal (working tree vs index).
+				map("n", "<leader>hM", function()
+					gitsigns.change_base(nil, true)
+					vim.notify("gitsigns: reviewing against index")
+				end)
+				-- Every changed hunk across the repo -> quickfix ("Changes" list).
+				map("n", "<leader>hq", function()
+					gitsigns.setqflist("all")
+				end)
+
 				-- Text object
 				map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
 			end,
